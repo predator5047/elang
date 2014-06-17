@@ -143,5 +143,4 @@ struct NFunctionCall : NExpresion {
 
 	~NFunctionCall();
 };
-
 #endif

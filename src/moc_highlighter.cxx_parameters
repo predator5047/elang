@@ -1,0 +1,11 @@
+-I/usr/include
+-I/usr/include/QtGui
+-I/usr/include/QtCore
+-I/home/alexandru/Documents/elang
+-I/home/alexandru/Documents/elang/src
+-DQT_NO_DEBUG
+-DQT_GUI_LIB
+-DQT_CORE_LIB
+-o
+/home/alexandru/Documents/elang/src/moc_highlighter.cxx
+/home/alexandru/Documents/elang/src/highlighter.h
