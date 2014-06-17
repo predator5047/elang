@@ -2,10 +2,12 @@
 #ifndef VALUE_H_
 #define VALUE_H_
 
+#include <string>
+
 struct NFunctionDeclartion;
 
 enum ValueType {
-	VDouble, VInt, VBool, VVoid, VFunction
+	VDouble, VInt, VBool, VVoid, VFunction, VString
 };
 
 
@@ -15,11 +17,13 @@ struct Value {
 		long long IntValue;
 		double DoubleValue;
 		bool BoolValue;
+		std::string *Str;
 		NFunctionDeclartion *Func;
 	};	
 
 	Value();
 	Value(ValueType t);
+	~Value();
 
 	Value Add(Value b);
 	Value Substract(Value b);

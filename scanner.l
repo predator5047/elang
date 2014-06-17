@@ -8,8 +8,12 @@
 #define TOK(t) (yylval.type = (t))
 
 extern "C" int yywrap() {}
+char buf[150];
+char *s;
 
 %}
+
+%x STR
 
 %%
 
@@ -23,6 +27,19 @@ extern "C" int yywrap() {}
 [a-zA-Z_][a-zA-Z0-9_]*			SAVE_VALUE; return IDENTIFIER;
 [+-]?[0-9]+\.[0-9]+				SAVE_VALUE; return DOUBLE;
 [+-]?[0-9]+						SAVE_VALUE; return INTEGER;
+\"								{ BEGIN STR; s = buf;  }
+<STR>\\n						{ *s++ = '\n';  }
+<STR>\\t						{ *s++ = '\t';  }
+<STR>\\\"						{ *s++ = '\"';  }
+<STR>\"							{ 
+									*s = 0;
+									BEGIN 0;
+									yylval.str = new std::string(buf);
+									return STRING;
+								}
+<STR>\n							{ std::cout << "Invalid string.\n"; exit(1);  }
+<STR>.							{ *s++ = *yytext;  }
+"])"
 "("								return TOK(L_PAREN);
 ")"								return TOK(R_PAREN);
 "{"								return TOK(L_BRACKET);

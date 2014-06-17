@@ -31,7 +31,7 @@ NBlock *program;
 	std::string *str;
 }
 
-%token <str> IDENTIFIER INTEGER DOUBLE
+%token <str> IDENTIFIER INTEGER DOUBLE STRING
 %token <type> EQ COMP_EQ COMP_NEQ 
 %token <type> LESS_TH GREATER_TH
 %token <type> LESS_TH_OR_EQ GREATER_TH_OR_EQ
@@ -87,7 +87,6 @@ Expression: Identifier EQ Expression { $$ = new NAssigmentExpresion($1, $3); }
 ;
 
 Block: L_BRACKET Expressions R_BRACKET { $$ = $2; }
-	 | L_BRACKET R_BRACKET { $$ = new NBlock(); }
 ;
 
 PrintExpresion: PRINT L_PAREN Call_Args R_PAREN { $$ = new NPrintExpresion(*$3); delete $3; }
@@ -112,6 +111,7 @@ IfElseExpression: IF Expression Block ELSE Block { $$ = new NIfElseExpresion($2,
 
 Constant: DOUBLE { $$ = new NDouble(atof($1->c_str())); delete $1; }
 		| INTEGER { $$ = new NInteger(atoi($1->c_str())); delete $1; }
+		| STRING { $$ = new NString($1); }
 ;
 
 BinaryExpresion: Expression MINUS Expression { $$ = new NBinaryOparator($1, $2, $3); }

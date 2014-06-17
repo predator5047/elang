@@ -116,6 +116,14 @@ struct NDouble : NExpresion {
 	Value Interpret();
 };
 
+struct NString : NExpresion {
+	std::string *value;
+	NString(std::string *s);
+
+	Value Interpret();
+	~NString();
+};
+
 struct NIdentifier : NExpresion {
 	std::string name;
 

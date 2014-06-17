@@ -1,31 +1,9 @@
-Nonterminals useless in grammar
-
-   PrintExpresion
-   Function_Declaration
-   Function_Args_Declartion
-
-
 Terminals unused in grammar
 
-   SEMI_COLON
-   FUNC
-   PRINT
+   NOT
 
 
-Rules useless in grammar
-
-   31 PrintExpresion: PRINT L_PAREN Call_Args R_PAREN
-
-   32 Function_Declaration: FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
-
-   33 Function_Args_Declartion: /* empty */
-   34                         | Identifier
-   35                         | Function_Args_Declartion COMMA Identifier
-
-
-State 13 conflicts: 1 shift/reduce
-State 36 conflicts: 10 shift/reduce
-State 37 conflicts: 10 shift/reduce
+State 21 conflicts: 1 shift/reduce
 
 
 Grammar
@@ -41,665 +19,2956 @@ Grammar
     5           | Identifier L_PAREN Call_Args R_PAREN
     6           | Identifier
     7           | Constant
-    8           | Expression Operator Expression
-    9           | L_PAREN Expression R_PAREN
-   10           | IfElseExpression
-   11           | Block
+    8           | PrintExpresion
+    9           | Function_Declaration
+   10           | BinaryExpresion
+   11           | L_PAREN Expression R_PAREN
+   12           | IfElseExpression
+   13           | FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | WHILE Expression Block
+   15           | Block
 
-   12 Block: L_BRACKET Expressions R_BRACKET
-   13      | L_BRACKET R_BRACKET
+   16 Block: L_BRACKET Expressions R_BRACKET
+   17      | L_BRACKET R_BRACKET
 
-   14 Call_Args: /* empty */
-   15          | Expression
-   16          | Call_Args COMMA Expression
+   18 PrintExpresion: PRINT L_PAREN Call_Args R_PAREN
 
-   17 IfElseExpression: IF Expression Block ELSE Block
+   19 Function_Declaration: FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
 
-   18 Constant: DOUBLE
-   19         | INTEGER
+   20 Function_Args_Declartion: /* empty */
+   21                         | Identifier
+   22                         | Function_Args_Declartion COMMA Identifier
 
-   20 Operator: MINUS
-   21         | PLUS
-   22         | MULTIPLY
-   23         | DIVIDE
-   24         | LESS_TH
-   25         | LESS_TH_OR_EQ
-   26         | GREATER_TH
-   27         | GREATER_TH_OR_EQ
-   28         | COMP_EQ
-   29         | COMP_NEQ
+   23 Call_Args: /* empty */
+   24          | Expression
+   25          | Call_Args COMMA Expression
 
-   30 Identifier: IDENTIFIER
+   26 IfElseExpression: IF Expression Block ELSE Block
+
+   27 Constant: DOUBLE
+   28         | INTEGER
+   29         | STRING
+
+   30 BinaryExpresion: Expression MINUS Expression
+   31                | Expression PLUS Expression
+   32                | Expression MULTIPLY Expression
+   33                | Expression MOD Expression
+   34                | Expression DIVIDE Expression
+   35                | Expression LESS_TH Expression
+   36                | Expression LESS_TH_OR_EQ Expression
+   37                | Expression GREATER_TH Expression
+   38                | Expression GREATER_TH_OR_EQ Expression
+   39                | Expression COMP_EQ Expression
+   40                | Expression COMP_NEQ Expression
+   41                | Expression AND Expression
+   42                | Expression OR Expression
+
+   43 Identifier: IDENTIFIER
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
 error (256)
-IDENTIFIER (258) 30
-INTEGER (259) 19
-DOUBLE (260) 18
-EQ (261) 4
-COMP_EQ (262) 28
-COMP_NEQ (263) 29
-LESS_TH (264) 24
-GREATER_TH (265) 26
-LESS_TH_OR_EQ (266) 25
-GREATER_TH_OR_EQ (267) 27
-PLUS (268) 21
-MINUS (269) 20
-DIVIDE (270) 23
-MULTIPLY (271) 22
-SEMI_COLON (272)
-COMMA (273) 16
-FUNC (274)
-L_PAREN (275) 5 9
-R_PAREN (276) 5 9
-L_BRACKET (277) 12 13
-R_BRACKET (278) 12 13
-PRINT (279)
-IF (280) 17
-ELSE (281) 17
+IDENTIFIER (258) 43
+INTEGER (259) 28
+DOUBLE (260) 27
+STRING (261) 29
+EQ (262) 4
+COMP_EQ (263) 39
+COMP_NEQ (264) 40
+LESS_TH (265) 35
+GREATER_TH (266) 37
+LESS_TH_OR_EQ (267) 36
+GREATER_TH_OR_EQ (268) 38
+PLUS (269) 31
+MINUS (270) 30
+DIVIDE (271) 34
+MULTIPLY (272) 32
+MOD (273) 33
+SEMI_COLON (274) 13
+COMMA (275) 22 25
+FUNC (276) 19
+L_PAREN (277) 5 11 18 19
+R_PAREN (278) 5 11 18 19
+L_BRACKET (279) 16 17
+R_BRACKET (280) 16 17
+PRINT (281) 18
+IF (282) 26
+ELSE (283) 26
+FOR (284) 13
+WHILE (285) 14
+AND (286) 41
+OR (287) 42
+NOT (288)
 
 
 Nonterminals, with rules where they appear
 
-$accept (27)
+$accept (34)
     on left: 0
-Program (28)
+Program (35)
     on left: 1, on right: 0
-Expressions (29)
-    on left: 2 3, on right: 1 3 12
-Expression (30)
-    on left: 4 5 6 7 8 9 10 11, on right: 2 3 4 8 9 15 16 17
-Block (31)
-    on left: 12 13, on right: 11 17
-Call_Args (32)
-    on left: 14 15 16, on right: 5 16
-IfElseExpression (33)
-    on left: 17, on right: 10
-Constant (34)
-    on left: 18 19, on right: 7
-Operator (35)
-    on left: 20 21 22 23 24 25 26 27 28 29, on right: 8
-Identifier (36)
-    on left: 30, on right: 4 5 6
+Expressions (36)
+    on left: 2 3, on right: 1 3 16
+Expression (37)
+    on left: 4 5 6 7 8 9 10 11 12 13 14 15, on right: 2 3 4 11 13 14
+    24 25 26 30 31 32 33 34 35 36 37 38 39 40 41 42
+Block (38)
+    on left: 16 17, on right: 13 14 15 19 26
+PrintExpresion (39)
+    on left: 18, on right: 8
+Function_Declaration (40)
+    on left: 19, on right: 9
+Function_Args_Declartion (41)
+    on left: 20 21 22, on right: 19 22
+Call_Args (42)
+    on left: 23 24 25, on right: 5 18 25
+IfElseExpression (43)
+    on left: 26, on right: 12
+Constant (44)
+    on left: 27 28 29, on right: 7
+BinaryExpresion (45)
+    on left: 30 31 32 33 34 35 36 37 38 39 40 41 42, on right: 10
+Identifier (46)
+    on left: 43, on right: 4 5 6 19 21 22
 
 
 State 0
 
     0 $accept: . Program $end
+    1 Program: . Expressions
+    2 Expressions: . Expression
+    3            | . Expressions Expression
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
 
     IDENTIFIER  shift, and go to state 1
     INTEGER     shift, and go to state 2
     DOUBLE      shift, and go to state 3
-    L_PAREN     shift, and go to state 4
-    L_BRACKET   shift, and go to state 5
-    IF          shift, and go to state 6
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
 
-    Program           go to state 7
-    Expressions       go to state 8
-    Expression        go to state 9
-    Block             go to state 10
-    IfElseExpression  go to state 11
-    Constant          go to state 12
-    Identifier        go to state 13
+    Program               go to state 12
+    Expressions           go to state 13
+    Expression            go to state 14
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
 
 
 State 1
 
-   30 Identifier: IDENTIFIER .
+   43 Identifier: IDENTIFIER .
 
-    $default  reduce using rule 30 (Identifier)
+    $default  reduce using rule 43 (Identifier)
 
 
 State 2
 
-   19 Constant: INTEGER .
+   28 Constant: INTEGER .
 
-    $default  reduce using rule 19 (Constant)
+    $default  reduce using rule 28 (Constant)
 
 
 State 3
 
-   18 Constant: DOUBLE .
+   27 Constant: DOUBLE .
 
-    $default  reduce using rule 18 (Constant)
+    $default  reduce using rule 27 (Constant)
 
 
 State 4
 
-    9 Expression: L_PAREN . Expression R_PAREN
+   29 Constant: STRING .
 
-    IDENTIFIER  shift, and go to state 1
-    INTEGER     shift, and go to state 2
-    DOUBLE      shift, and go to state 3
-    L_PAREN     shift, and go to state 4
-    L_BRACKET   shift, and go to state 5
-    IF          shift, and go to state 6
-
-    Expression        go to state 14
-    Block             go to state 10
-    IfElseExpression  go to state 11
-    Constant          go to state 12
-    Identifier        go to state 13
+    $default  reduce using rule 29 (Constant)
 
 
 State 5
 
-   12 Block: L_BRACKET . Expressions R_BRACKET
-   13      | L_BRACKET . R_BRACKET
+   19 Function_Declaration: FUNC . Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   43 Identifier: . IDENTIFIER
 
     IDENTIFIER  shift, and go to state 1
-    INTEGER     shift, and go to state 2
-    DOUBLE      shift, and go to state 3
-    L_PAREN     shift, and go to state 4
-    L_BRACKET   shift, and go to state 5
-    R_BRACKET   shift, and go to state 15
-    IF          shift, and go to state 6
 
-    Expressions       go to state 16
-    Expression        go to state 9
-    Block             go to state 10
-    IfElseExpression  go to state 11
-    Constant          go to state 12
-    Identifier        go to state 13
+    Identifier  go to state 22
 
 
 State 6
 
-   17 IfElseExpression: IF . Expression Block ELSE Block
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   11           | L_PAREN . Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
 
     IDENTIFIER  shift, and go to state 1
     INTEGER     shift, and go to state 2
     DOUBLE      shift, and go to state 3
-    L_PAREN     shift, and go to state 4
-    L_BRACKET   shift, and go to state 5
-    IF          shift, and go to state 6
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
 
-    Expression        go to state 17
-    Block             go to state 10
-    IfElseExpression  go to state 11
-    Constant          go to state 12
-    Identifier        go to state 13
+    Expression            go to state 23
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
 
 
 State 7
 
-    0 $accept: Program . $end
-
-    $end  shift, and go to state 18
-
-
-State 8
-
-    1 Program: Expressions .
-    3 Expressions: Expressions . Expression
+    2 Expressions: . Expression
+    3            | . Expressions Expression
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   16      | L_BRACKET . Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   17      | L_BRACKET . R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
 
     IDENTIFIER  shift, and go to state 1
     INTEGER     shift, and go to state 2
     DOUBLE      shift, and go to state 3
-    L_PAREN     shift, and go to state 4
-    L_BRACKET   shift, and go to state 5
-    IF          shift, and go to state 6
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    R_BRACKET   shift, and go to state 24
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
 
-    $default  reduce using rule 1 (Program)
+    Expressions           go to state 25
+    Expression            go to state 14
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
 
-    Expression        go to state 19
-    Block             go to state 10
-    IfElseExpression  go to state 11
-    Constant          go to state 12
-    Identifier        go to state 13
+
+State 8
+
+   18 PrintExpresion: PRINT . L_PAREN Call_Args R_PAREN
+
+    L_PAREN  shift, and go to state 26
 
 
 State 9
 
-    2 Expressions: Expression .
-    8 Expression: Expression . Operator Expression
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   26                 | IF . Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
 
-    COMP_EQ           shift, and go to state 20
-    COMP_NEQ          shift, and go to state 21
-    LESS_TH           shift, and go to state 22
-    GREATER_TH        shift, and go to state 23
-    LESS_TH_OR_EQ     shift, and go to state 24
-    GREATER_TH_OR_EQ  shift, and go to state 25
-    PLUS              shift, and go to state 26
-    MINUS             shift, and go to state 27
-    DIVIDE            shift, and go to state 28
-    MULTIPLY          shift, and go to state 29
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
 
-    $default  reduce using rule 2 (Expressions)
-
-    Operator  go to state 30
+    Expression            go to state 27
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
 
 
 State 10
 
-   11 Expression: Block .
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   13           | FOR . Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
 
-    $default  reduce using rule 11 (Expression)
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    Expression            go to state 28
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
 
 
 State 11
 
-   10 Expression: IfElseExpression .
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   14           | WHILE . Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
 
-    $default  reduce using rule 10 (Expression)
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    Expression            go to state 29
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
 
 
 State 12
+
+    0 $accept: Program . $end
+
+    $end  shift, and go to state 30
+
+
+State 13
+
+    1 Program: Expressions .  [$end]
+    3 Expressions: Expressions . Expression
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    $default  reduce using rule 1 (Program)
+
+    Expression            go to state 31
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
+
+
+State 14
+
+    2 Expressions: Expression .  [$end, IDENTIFIER, INTEGER, DOUBLE, STRING, FUNC, L_PAREN, L_BRACKET, R_BRACKET, PRINT, IF, FOR, WHILE]
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    COMP_EQ           shift, and go to state 32
+    COMP_NEQ          shift, and go to state 33
+    LESS_TH           shift, and go to state 34
+    GREATER_TH        shift, and go to state 35
+    LESS_TH_OR_EQ     shift, and go to state 36
+    GREATER_TH_OR_EQ  shift, and go to state 37
+    PLUS              shift, and go to state 38
+    MINUS             shift, and go to state 39
+    DIVIDE            shift, and go to state 40
+    MULTIPLY          shift, and go to state 41
+    MOD               shift, and go to state 42
+    AND               shift, and go to state 43
+    OR                shift, and go to state 44
+
+    $default  reduce using rule 2 (Expressions)
+
+
+State 15
+
+   15 Expression: Block .
+
+    $default  reduce using rule 15 (Expression)
+
+
+State 16
+
+    8 Expression: PrintExpresion .
+
+    $default  reduce using rule 8 (Expression)
+
+
+State 17
+
+    9 Expression: Function_Declaration .
+
+    $default  reduce using rule 9 (Expression)
+
+
+State 18
+
+   12 Expression: IfElseExpression .
+
+    $default  reduce using rule 12 (Expression)
+
+
+State 19
 
     7 Expression: Constant .
 
     $default  reduce using rule 7 (Expression)
 
 
-State 13
+State 20
+
+   10 Expression: BinaryExpresion .
+
+    $default  reduce using rule 10 (Expression)
+
+
+State 21
 
     4 Expression: Identifier . EQ Expression
     5           | Identifier . L_PAREN Call_Args R_PAREN
-    6           | Identifier .
+    6           | Identifier .  [$end, IDENTIFIER, INTEGER, DOUBLE, STRING, COMP_EQ, COMP_NEQ, LESS_TH, GREATER_TH, LESS_TH_OR_EQ, GREATER_TH_OR_EQ, PLUS, MINUS, DIVIDE, MULTIPLY, MOD, SEMI_COLON, COMMA, FUNC, L_PAREN, R_PAREN, L_BRACKET, R_BRACKET, PRINT, IF, FOR, WHILE, AND, OR]
 
-    EQ       shift, and go to state 31
-    L_PAREN  shift, and go to state 32
+    EQ       shift, and go to state 45
+    L_PAREN  shift, and go to state 46
 
     L_PAREN   [reduce using rule 6 (Expression)]
     $default  reduce using rule 6 (Expression)
 
 
-State 14
+State 22
 
-    8 Expression: Expression . Operator Expression
-    9           | L_PAREN Expression . R_PAREN
+   19 Function_Declaration: FUNC Identifier . L_PAREN Function_Args_Declartion R_PAREN Block
 
-    COMP_EQ           shift, and go to state 20
-    COMP_NEQ          shift, and go to state 21
-    LESS_TH           shift, and go to state 22
-    GREATER_TH        shift, and go to state 23
-    LESS_TH_OR_EQ     shift, and go to state 24
-    GREATER_TH_OR_EQ  shift, and go to state 25
-    PLUS              shift, and go to state 26
-    MINUS             shift, and go to state 27
-    DIVIDE            shift, and go to state 28
-    MULTIPLY          shift, and go to state 29
-    R_PAREN           shift, and go to state 33
-
-    Operator  go to state 30
+    L_PAREN  shift, and go to state 47
 
 
-State 15
+State 23
 
-   13 Block: L_BRACKET R_BRACKET .
+   11 Expression: L_PAREN Expression . R_PAREN
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
 
-    $default  reduce using rule 13 (Block)
+    COMP_EQ           shift, and go to state 32
+    COMP_NEQ          shift, and go to state 33
+    LESS_TH           shift, and go to state 34
+    GREATER_TH        shift, and go to state 35
+    LESS_TH_OR_EQ     shift, and go to state 36
+    GREATER_TH_OR_EQ  shift, and go to state 37
+    PLUS              shift, and go to state 38
+    MINUS             shift, and go to state 39
+    DIVIDE            shift, and go to state 40
+    MULTIPLY          shift, and go to state 41
+    MOD               shift, and go to state 42
+    R_PAREN           shift, and go to state 48
+    AND               shift, and go to state 43
+    OR                shift, and go to state 44
 
 
-State 16
+State 24
+
+   17 Block: L_BRACKET R_BRACKET .
+
+    $default  reduce using rule 17 (Block)
+
+
+State 25
 
     3 Expressions: Expressions . Expression
-   12 Block: L_BRACKET Expressions . R_BRACKET
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   16      | L_BRACKET Expressions . R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
 
     IDENTIFIER  shift, and go to state 1
     INTEGER     shift, and go to state 2
     DOUBLE      shift, and go to state 3
-    L_PAREN     shift, and go to state 4
-    L_BRACKET   shift, and go to state 5
-    R_BRACKET   shift, and go to state 34
-    IF          shift, and go to state 6
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    R_BRACKET   shift, and go to state 49
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
 
-    Expression        go to state 19
-    Block             go to state 10
-    IfElseExpression  go to state 11
-    Constant          go to state 12
-    Identifier        go to state 13
-
-
-State 17
-
-    8 Expression: Expression . Operator Expression
-   17 IfElseExpression: IF Expression . Block ELSE Block
-
-    COMP_EQ           shift, and go to state 20
-    COMP_NEQ          shift, and go to state 21
-    LESS_TH           shift, and go to state 22
-    GREATER_TH        shift, and go to state 23
-    LESS_TH_OR_EQ     shift, and go to state 24
-    GREATER_TH_OR_EQ  shift, and go to state 25
-    PLUS              shift, and go to state 26
-    MINUS             shift, and go to state 27
-    DIVIDE            shift, and go to state 28
-    MULTIPLY          shift, and go to state 29
-    L_BRACKET         shift, and go to state 5
-
-    Block     go to state 35
-    Operator  go to state 30
+    Expression            go to state 31
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
 
 
-State 18
+State 26
+
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   18               | PRINT L_PAREN . Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   23 Call_Args: .  [COMMA, R_PAREN]
+   24          | . Expression
+   25          | . Call_Args COMMA Expression
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    $default  reduce using rule 23 (Call_Args)
+
+    Expression            go to state 50
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    Call_Args             go to state 51
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
+
+
+State 27
+
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   26 IfElseExpression: IF Expression . Block ELSE Block
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    COMP_EQ           shift, and go to state 32
+    COMP_NEQ          shift, and go to state 33
+    LESS_TH           shift, and go to state 34
+    GREATER_TH        shift, and go to state 35
+    LESS_TH_OR_EQ     shift, and go to state 36
+    GREATER_TH_OR_EQ  shift, and go to state 37
+    PLUS              shift, and go to state 38
+    MINUS             shift, and go to state 39
+    DIVIDE            shift, and go to state 40
+    MULTIPLY          shift, and go to state 41
+    MOD               shift, and go to state 42
+    L_BRACKET         shift, and go to state 7
+    AND               shift, and go to state 43
+    OR                shift, and go to state 44
+
+    Block  go to state 52
+
+
+State 28
+
+   13 Expression: FOR Expression . SEMI_COLON Expression SEMI_COLON Expression Block
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    COMP_EQ           shift, and go to state 32
+    COMP_NEQ          shift, and go to state 33
+    LESS_TH           shift, and go to state 34
+    GREATER_TH        shift, and go to state 35
+    LESS_TH_OR_EQ     shift, and go to state 36
+    GREATER_TH_OR_EQ  shift, and go to state 37
+    PLUS              shift, and go to state 38
+    MINUS             shift, and go to state 39
+    DIVIDE            shift, and go to state 40
+    MULTIPLY          shift, and go to state 41
+    MOD               shift, and go to state 42
+    SEMI_COLON        shift, and go to state 53
+    AND               shift, and go to state 43
+    OR                shift, and go to state 44
+
+
+State 29
+
+   14 Expression: WHILE Expression . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    COMP_EQ           shift, and go to state 32
+    COMP_NEQ          shift, and go to state 33
+    LESS_TH           shift, and go to state 34
+    GREATER_TH        shift, and go to state 35
+    LESS_TH_OR_EQ     shift, and go to state 36
+    GREATER_TH_OR_EQ  shift, and go to state 37
+    PLUS              shift, and go to state 38
+    MINUS             shift, and go to state 39
+    DIVIDE            shift, and go to state 40
+    MULTIPLY          shift, and go to state 41
+    MOD               shift, and go to state 42
+    L_BRACKET         shift, and go to state 7
+    AND               shift, and go to state 43
+    OR                shift, and go to state 44
+
+    Block  go to state 54
+
+
+State 30
 
     0 $accept: Program $end .
 
     $default  accept
 
 
-State 19
-
-    3 Expressions: Expressions Expression .
-    8 Expression: Expression . Operator Expression
-
-    COMP_EQ           shift, and go to state 20
-    COMP_NEQ          shift, and go to state 21
-    LESS_TH           shift, and go to state 22
-    GREATER_TH        shift, and go to state 23
-    LESS_TH_OR_EQ     shift, and go to state 24
-    GREATER_TH_OR_EQ  shift, and go to state 25
-    PLUS              shift, and go to state 26
-    MINUS             shift, and go to state 27
-    DIVIDE            shift, and go to state 28
-    MULTIPLY          shift, and go to state 29
-
-    $default  reduce using rule 3 (Expressions)
-
-    Operator  go to state 30
-
-
-State 20
-
-   28 Operator: COMP_EQ .
-
-    $default  reduce using rule 28 (Operator)
-
-
-State 21
-
-   29 Operator: COMP_NEQ .
-
-    $default  reduce using rule 29 (Operator)
-
-
-State 22
-
-   24 Operator: LESS_TH .
-
-    $default  reduce using rule 24 (Operator)
-
-
-State 23
-
-   26 Operator: GREATER_TH .
-
-    $default  reduce using rule 26 (Operator)
-
-
-State 24
-
-   25 Operator: LESS_TH_OR_EQ .
-
-    $default  reduce using rule 25 (Operator)
-
-
-State 25
-
-   27 Operator: GREATER_TH_OR_EQ .
-
-    $default  reduce using rule 27 (Operator)
-
-
-State 26
-
-   21 Operator: PLUS .
-
-    $default  reduce using rule 21 (Operator)
-
-
-State 27
-
-   20 Operator: MINUS .
-
-    $default  reduce using rule 20 (Operator)
-
-
-State 28
-
-   23 Operator: DIVIDE .
-
-    $default  reduce using rule 23 (Operator)
-
-
-State 29
-
-   22 Operator: MULTIPLY .
-
-    $default  reduce using rule 22 (Operator)
-
-
-State 30
-
-    8 Expression: Expression Operator . Expression
-
-    IDENTIFIER  shift, and go to state 1
-    INTEGER     shift, and go to state 2
-    DOUBLE      shift, and go to state 3
-    L_PAREN     shift, and go to state 4
-    L_BRACKET   shift, and go to state 5
-    IF          shift, and go to state 6
-
-    Expression        go to state 36
-    Block             go to state 10
-    IfElseExpression  go to state 11
-    Constant          go to state 12
-    Identifier        go to state 13
-
-
 State 31
 
-    4 Expression: Identifier EQ . Expression
+    3 Expressions: Expressions Expression .  [$end, IDENTIFIER, INTEGER, DOUBLE, STRING, FUNC, L_PAREN, L_BRACKET, R_BRACKET, PRINT, IF, FOR, WHILE]
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
 
-    IDENTIFIER  shift, and go to state 1
-    INTEGER     shift, and go to state 2
-    DOUBLE      shift, and go to state 3
-    L_PAREN     shift, and go to state 4
-    L_BRACKET   shift, and go to state 5
-    IF          shift, and go to state 6
+    COMP_EQ           shift, and go to state 32
+    COMP_NEQ          shift, and go to state 33
+    LESS_TH           shift, and go to state 34
+    GREATER_TH        shift, and go to state 35
+    LESS_TH_OR_EQ     shift, and go to state 36
+    GREATER_TH_OR_EQ  shift, and go to state 37
+    PLUS              shift, and go to state 38
+    MINUS             shift, and go to state 39
+    DIVIDE            shift, and go to state 40
+    MULTIPLY          shift, and go to state 41
+    MOD               shift, and go to state 42
+    AND               shift, and go to state 43
+    OR                shift, and go to state 44
 
-    Expression        go to state 37
-    Block             go to state 10
-    IfElseExpression  go to state 11
-    Constant          go to state 12
-    Identifier        go to state 13
+    $default  reduce using rule 3 (Expressions)
 
 
 State 32
 
-    5 Expression: Identifier L_PAREN . Call_Args R_PAREN
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   39                | Expression COMP_EQ . Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
 
     IDENTIFIER  shift, and go to state 1
     INTEGER     shift, and go to state 2
     DOUBLE      shift, and go to state 3
-    L_PAREN     shift, and go to state 4
-    L_BRACKET   shift, and go to state 5
-    IF          shift, and go to state 6
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
 
-    $default  reduce using rule 14 (Call_Args)
-
-    Expression        go to state 38
-    Block             go to state 10
-    Call_Args         go to state 39
-    IfElseExpression  go to state 11
-    Constant          go to state 12
-    Identifier        go to state 13
+    Expression            go to state 55
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
 
 
 State 33
 
-    9 Expression: L_PAREN Expression R_PAREN .
-
-    $default  reduce using rule 9 (Expression)
-
-
-State 34
-
-   12 Block: L_BRACKET Expressions R_BRACKET .
-
-    $default  reduce using rule 12 (Block)
-
-
-State 35
-
-   17 IfElseExpression: IF Expression Block . ELSE Block
-
-    ELSE  shift, and go to state 40
-
-
-State 36
-
-    8 Expression: Expression . Operator Expression
-    8           | Expression Operator Expression .
-
-    COMP_EQ           shift, and go to state 20
-    COMP_NEQ          shift, and go to state 21
-    LESS_TH           shift, and go to state 22
-    GREATER_TH        shift, and go to state 23
-    LESS_TH_OR_EQ     shift, and go to state 24
-    GREATER_TH_OR_EQ  shift, and go to state 25
-    PLUS              shift, and go to state 26
-    MINUS             shift, and go to state 27
-    DIVIDE            shift, and go to state 28
-    MULTIPLY          shift, and go to state 29
-
-    COMP_EQ           [reduce using rule 8 (Expression)]
-    COMP_NEQ          [reduce using rule 8 (Expression)]
-    LESS_TH           [reduce using rule 8 (Expression)]
-    GREATER_TH        [reduce using rule 8 (Expression)]
-    LESS_TH_OR_EQ     [reduce using rule 8 (Expression)]
-    GREATER_TH_OR_EQ  [reduce using rule 8 (Expression)]
-    PLUS              [reduce using rule 8 (Expression)]
-    MINUS             [reduce using rule 8 (Expression)]
-    DIVIDE            [reduce using rule 8 (Expression)]
-    MULTIPLY          [reduce using rule 8 (Expression)]
-    $default          reduce using rule 8 (Expression)
-
-    Operator  go to state 30
-
-
-State 37
-
-    4 Expression: Identifier EQ Expression .
-    8           | Expression . Operator Expression
-
-    COMP_EQ           shift, and go to state 20
-    COMP_NEQ          shift, and go to state 21
-    LESS_TH           shift, and go to state 22
-    GREATER_TH        shift, and go to state 23
-    LESS_TH_OR_EQ     shift, and go to state 24
-    GREATER_TH_OR_EQ  shift, and go to state 25
-    PLUS              shift, and go to state 26
-    MINUS             shift, and go to state 27
-    DIVIDE            shift, and go to state 28
-    MULTIPLY          shift, and go to state 29
-
-    COMP_EQ           [reduce using rule 4 (Expression)]
-    COMP_NEQ          [reduce using rule 4 (Expression)]
-    LESS_TH           [reduce using rule 4 (Expression)]
-    GREATER_TH        [reduce using rule 4 (Expression)]
-    LESS_TH_OR_EQ     [reduce using rule 4 (Expression)]
-    GREATER_TH_OR_EQ  [reduce using rule 4 (Expression)]
-    PLUS              [reduce using rule 4 (Expression)]
-    MINUS             [reduce using rule 4 (Expression)]
-    DIVIDE            [reduce using rule 4 (Expression)]
-    MULTIPLY          [reduce using rule 4 (Expression)]
-    $default          reduce using rule 4 (Expression)
-
-    Operator  go to state 30
-
-
-State 38
-
-    8 Expression: Expression . Operator Expression
-   15 Call_Args: Expression .
-
-    COMP_EQ           shift, and go to state 20
-    COMP_NEQ          shift, and go to state 21
-    LESS_TH           shift, and go to state 22
-    GREATER_TH        shift, and go to state 23
-    LESS_TH_OR_EQ     shift, and go to state 24
-    GREATER_TH_OR_EQ  shift, and go to state 25
-    PLUS              shift, and go to state 26
-    MINUS             shift, and go to state 27
-    DIVIDE            shift, and go to state 28
-    MULTIPLY          shift, and go to state 29
-
-    $default  reduce using rule 15 (Call_Args)
-
-    Operator  go to state 30
-
-
-State 39
-
-    5 Expression: Identifier L_PAREN Call_Args . R_PAREN
-   16 Call_Args: Call_Args . COMMA Expression
-
-    COMMA    shift, and go to state 41
-    R_PAREN  shift, and go to state 42
-
-
-State 40
-
-   17 IfElseExpression: IF Expression Block ELSE . Block
-
-    L_BRACKET  shift, and go to state 5
-
-    Block  go to state 43
-
-
-State 41
-
-   16 Call_Args: Call_Args COMMA . Expression
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   40                | Expression COMP_NEQ . Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
 
     IDENTIFIER  shift, and go to state 1
     INTEGER     shift, and go to state 2
     DOUBLE      shift, and go to state 3
-    L_PAREN     shift, and go to state 4
-    L_BRACKET   shift, and go to state 5
-    IF          shift, and go to state 6
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
 
-    Expression        go to state 44
-    Block             go to state 10
-    IfElseExpression  go to state 11
-    Constant          go to state 12
-    Identifier        go to state 13
+    Expression            go to state 56
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
+
+
+State 34
+
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   35                | Expression LESS_TH . Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    Expression            go to state 57
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
+
+
+State 35
+
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   37                | Expression GREATER_TH . Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    Expression            go to state 58
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
+
+
+State 36
+
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   36                | Expression LESS_TH_OR_EQ . Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    Expression            go to state 59
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
+
+
+State 37
+
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   38                | Expression GREATER_TH_OR_EQ . Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    Expression            go to state 60
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
+
+
+State 38
+
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   31                | Expression PLUS . Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    Expression            go to state 61
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
+
+
+State 39
+
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   30                | Expression MINUS . Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    Expression            go to state 62
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
+
+
+State 40
+
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   34                | Expression DIVIDE . Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    Expression            go to state 63
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
+
+
+State 41
+
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   32                | Expression MULTIPLY . Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    Expression            go to state 64
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
 
 
 State 42
+
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   33                | Expression MOD . Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    Expression            go to state 65
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
+
+
+State 43
+
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   41                | Expression AND . Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    Expression            go to state 66
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
+
+
+State 44
+
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   42                | Expression OR . Expression
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    Expression            go to state 67
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
+
+
+State 45
+
+    4 Expression: . Identifier EQ Expression
+    4           | Identifier EQ . Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    Expression            go to state 68
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
+
+
+State 46
+
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    5           | Identifier L_PAREN . Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   23 Call_Args: .  [COMMA, R_PAREN]
+   24          | . Expression
+   25          | . Call_Args COMMA Expression
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    $default  reduce using rule 23 (Call_Args)
+
+    Expression            go to state 50
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    Call_Args             go to state 69
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
+
+
+State 47
+
+   19 Function_Declaration: FUNC Identifier L_PAREN . Function_Args_Declartion R_PAREN Block
+   20 Function_Args_Declartion: .  [COMMA, R_PAREN]
+   21                         | . Identifier
+   22                         | . Function_Args_Declartion COMMA Identifier
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+
+    $default  reduce using rule 20 (Function_Args_Declartion)
+
+    Function_Args_Declartion  go to state 70
+    Identifier                go to state 71
+
+
+State 48
+
+   11 Expression: L_PAREN Expression R_PAREN .
+
+    $default  reduce using rule 11 (Expression)
+
+
+State 49
+
+   16 Block: L_BRACKET Expressions R_BRACKET .
+
+    $default  reduce using rule 16 (Block)
+
+
+State 50
+
+   24 Call_Args: Expression .  [COMMA, R_PAREN]
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    COMP_EQ           shift, and go to state 32
+    COMP_NEQ          shift, and go to state 33
+    LESS_TH           shift, and go to state 34
+    GREATER_TH        shift, and go to state 35
+    LESS_TH_OR_EQ     shift, and go to state 36
+    GREATER_TH_OR_EQ  shift, and go to state 37
+    PLUS              shift, and go to state 38
+    MINUS             shift, and go to state 39
+    DIVIDE            shift, and go to state 40
+    MULTIPLY          shift, and go to state 41
+    MOD               shift, and go to state 42
+    AND               shift, and go to state 43
+    OR                shift, and go to state 44
+
+    $default  reduce using rule 24 (Call_Args)
+
+
+State 51
+
+   18 PrintExpresion: PRINT L_PAREN Call_Args . R_PAREN
+   25 Call_Args: Call_Args . COMMA Expression
+
+    COMMA    shift, and go to state 72
+    R_PAREN  shift, and go to state 73
+
+
+State 52
+
+   26 IfElseExpression: IF Expression Block . ELSE Block
+
+    ELSE  shift, and go to state 74
+
+
+State 53
+
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   13           | FOR Expression SEMI_COLON . Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    Expression            go to state 75
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
+
+
+State 54
+
+   14 Expression: WHILE Expression Block .
+
+    $default  reduce using rule 14 (Expression)
+
+
+State 55
+
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   39                | Expression COMP_EQ Expression .  [$end, IDENTIFIER, INTEGER, DOUBLE, STRING, COMP_EQ, COMP_NEQ, SEMI_COLON, COMMA, FUNC, L_PAREN, R_PAREN, L_BRACKET, R_BRACKET, PRINT, IF, FOR, WHILE, AND, OR]
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    LESS_TH           shift, and go to state 34
+    GREATER_TH        shift, and go to state 35
+    LESS_TH_OR_EQ     shift, and go to state 36
+    GREATER_TH_OR_EQ  shift, and go to state 37
+    PLUS              shift, and go to state 38
+    MINUS             shift, and go to state 39
+    DIVIDE            shift, and go to state 40
+    MULTIPLY          shift, and go to state 41
+    MOD               shift, and go to state 42
+
+    $default  reduce using rule 39 (BinaryExpresion)
+
+    Conflict between rule 39 and token COMP_EQ resolved as reduce (%left COMP_EQ).
+    Conflict between rule 39 and token COMP_NEQ resolved as reduce (%left COMP_NEQ).
+    Conflict between rule 39 and token LESS_TH resolved as shift (COMP_EQ < LESS_TH).
+    Conflict between rule 39 and token GREATER_TH resolved as shift (COMP_EQ < GREATER_TH).
+    Conflict between rule 39 and token LESS_TH_OR_EQ resolved as shift (COMP_EQ < LESS_TH_OR_EQ).
+    Conflict between rule 39 and token GREATER_TH_OR_EQ resolved as shift (COMP_EQ < GREATER_TH_OR_EQ).
+    Conflict between rule 39 and token PLUS resolved as shift (COMP_EQ < PLUS).
+    Conflict between rule 39 and token MINUS resolved as shift (COMP_EQ < MINUS).
+    Conflict between rule 39 and token DIVIDE resolved as shift (COMP_EQ < DIVIDE).
+    Conflict between rule 39 and token MULTIPLY resolved as shift (COMP_EQ < MULTIPLY).
+    Conflict between rule 39 and token MOD resolved as shift (COMP_EQ < MOD).
+    Conflict between rule 39 and token AND resolved as reduce (AND < COMP_EQ).
+    Conflict between rule 39 and token OR resolved as reduce (OR < COMP_EQ).
+
+
+State 56
+
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   40                | Expression COMP_NEQ Expression .  [$end, IDENTIFIER, INTEGER, DOUBLE, STRING, COMP_EQ, COMP_NEQ, SEMI_COLON, COMMA, FUNC, L_PAREN, R_PAREN, L_BRACKET, R_BRACKET, PRINT, IF, FOR, WHILE, AND, OR]
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    LESS_TH           shift, and go to state 34
+    GREATER_TH        shift, and go to state 35
+    LESS_TH_OR_EQ     shift, and go to state 36
+    GREATER_TH_OR_EQ  shift, and go to state 37
+    PLUS              shift, and go to state 38
+    MINUS             shift, and go to state 39
+    DIVIDE            shift, and go to state 40
+    MULTIPLY          shift, and go to state 41
+    MOD               shift, and go to state 42
+
+    $default  reduce using rule 40 (BinaryExpresion)
+
+    Conflict between rule 40 and token COMP_EQ resolved as reduce (%left COMP_EQ).
+    Conflict between rule 40 and token COMP_NEQ resolved as reduce (%left COMP_NEQ).
+    Conflict between rule 40 and token LESS_TH resolved as shift (COMP_NEQ < LESS_TH).
+    Conflict between rule 40 and token GREATER_TH resolved as shift (COMP_NEQ < GREATER_TH).
+    Conflict between rule 40 and token LESS_TH_OR_EQ resolved as shift (COMP_NEQ < LESS_TH_OR_EQ).
+    Conflict between rule 40 and token GREATER_TH_OR_EQ resolved as shift (COMP_NEQ < GREATER_TH_OR_EQ).
+    Conflict between rule 40 and token PLUS resolved as shift (COMP_NEQ < PLUS).
+    Conflict between rule 40 and token MINUS resolved as shift (COMP_NEQ < MINUS).
+    Conflict between rule 40 and token DIVIDE resolved as shift (COMP_NEQ < DIVIDE).
+    Conflict between rule 40 and token MULTIPLY resolved as shift (COMP_NEQ < MULTIPLY).
+    Conflict between rule 40 and token MOD resolved as shift (COMP_NEQ < MOD).
+    Conflict between rule 40 and token AND resolved as reduce (AND < COMP_NEQ).
+    Conflict between rule 40 and token OR resolved as reduce (OR < COMP_NEQ).
+
+
+State 57
+
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   35                | Expression LESS_TH Expression .  [$end, IDENTIFIER, INTEGER, DOUBLE, STRING, COMP_EQ, COMP_NEQ, LESS_TH, GREATER_TH, LESS_TH_OR_EQ, GREATER_TH_OR_EQ, SEMI_COLON, COMMA, FUNC, L_PAREN, R_PAREN, L_BRACKET, R_BRACKET, PRINT, IF, FOR, WHILE, AND, OR]
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    PLUS      shift, and go to state 38
+    MINUS     shift, and go to state 39
+    DIVIDE    shift, and go to state 40
+    MULTIPLY  shift, and go to state 41
+    MOD       shift, and go to state 42
+
+    $default  reduce using rule 35 (BinaryExpresion)
+
+    Conflict between rule 35 and token COMP_EQ resolved as reduce (COMP_EQ < LESS_TH).
+    Conflict between rule 35 and token COMP_NEQ resolved as reduce (COMP_NEQ < LESS_TH).
+    Conflict between rule 35 and token LESS_TH resolved as reduce (%left LESS_TH).
+    Conflict between rule 35 and token GREATER_TH resolved as reduce (%left GREATER_TH).
+    Conflict between rule 35 and token LESS_TH_OR_EQ resolved as reduce (%left LESS_TH_OR_EQ).
+    Conflict between rule 35 and token GREATER_TH_OR_EQ resolved as reduce (%left GREATER_TH_OR_EQ).
+    Conflict between rule 35 and token PLUS resolved as shift (LESS_TH < PLUS).
+    Conflict between rule 35 and token MINUS resolved as shift (LESS_TH < MINUS).
+    Conflict between rule 35 and token DIVIDE resolved as shift (LESS_TH < DIVIDE).
+    Conflict between rule 35 and token MULTIPLY resolved as shift (LESS_TH < MULTIPLY).
+    Conflict between rule 35 and token MOD resolved as shift (LESS_TH < MOD).
+    Conflict between rule 35 and token AND resolved as reduce (AND < LESS_TH).
+    Conflict between rule 35 and token OR resolved as reduce (OR < LESS_TH).
+
+
+State 58
+
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   37                | Expression GREATER_TH Expression .  [$end, IDENTIFIER, INTEGER, DOUBLE, STRING, COMP_EQ, COMP_NEQ, LESS_TH, GREATER_TH, LESS_TH_OR_EQ, GREATER_TH_OR_EQ, SEMI_COLON, COMMA, FUNC, L_PAREN, R_PAREN, L_BRACKET, R_BRACKET, PRINT, IF, FOR, WHILE, AND, OR]
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    PLUS      shift, and go to state 38
+    MINUS     shift, and go to state 39
+    DIVIDE    shift, and go to state 40
+    MULTIPLY  shift, and go to state 41
+    MOD       shift, and go to state 42
+
+    $default  reduce using rule 37 (BinaryExpresion)
+
+    Conflict between rule 37 and token COMP_EQ resolved as reduce (COMP_EQ < GREATER_TH).
+    Conflict between rule 37 and token COMP_NEQ resolved as reduce (COMP_NEQ < GREATER_TH).
+    Conflict between rule 37 and token LESS_TH resolved as reduce (%left LESS_TH).
+    Conflict between rule 37 and token GREATER_TH resolved as reduce (%left GREATER_TH).
+    Conflict between rule 37 and token LESS_TH_OR_EQ resolved as reduce (%left LESS_TH_OR_EQ).
+    Conflict between rule 37 and token GREATER_TH_OR_EQ resolved as reduce (%left GREATER_TH_OR_EQ).
+    Conflict between rule 37 and token PLUS resolved as shift (GREATER_TH < PLUS).
+    Conflict between rule 37 and token MINUS resolved as shift (GREATER_TH < MINUS).
+    Conflict between rule 37 and token DIVIDE resolved as shift (GREATER_TH < DIVIDE).
+    Conflict between rule 37 and token MULTIPLY resolved as shift (GREATER_TH < MULTIPLY).
+    Conflict between rule 37 and token MOD resolved as shift (GREATER_TH < MOD).
+    Conflict between rule 37 and token AND resolved as reduce (AND < GREATER_TH).
+    Conflict between rule 37 and token OR resolved as reduce (OR < GREATER_TH).
+
+
+State 59
+
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   36                | Expression LESS_TH_OR_EQ Expression .  [$end, IDENTIFIER, INTEGER, DOUBLE, STRING, COMP_EQ, COMP_NEQ, LESS_TH, GREATER_TH, LESS_TH_OR_EQ, GREATER_TH_OR_EQ, SEMI_COLON, COMMA, FUNC, L_PAREN, R_PAREN, L_BRACKET, R_BRACKET, PRINT, IF, FOR, WHILE, AND, OR]
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    PLUS      shift, and go to state 38
+    MINUS     shift, and go to state 39
+    DIVIDE    shift, and go to state 40
+    MULTIPLY  shift, and go to state 41
+    MOD       shift, and go to state 42
+
+    $default  reduce using rule 36 (BinaryExpresion)
+
+    Conflict between rule 36 and token COMP_EQ resolved as reduce (COMP_EQ < LESS_TH_OR_EQ).
+    Conflict between rule 36 and token COMP_NEQ resolved as reduce (COMP_NEQ < LESS_TH_OR_EQ).
+    Conflict between rule 36 and token LESS_TH resolved as reduce (%left LESS_TH).
+    Conflict between rule 36 and token GREATER_TH resolved as reduce (%left GREATER_TH).
+    Conflict between rule 36 and token LESS_TH_OR_EQ resolved as reduce (%left LESS_TH_OR_EQ).
+    Conflict between rule 36 and token GREATER_TH_OR_EQ resolved as reduce (%left GREATER_TH_OR_EQ).
+    Conflict between rule 36 and token PLUS resolved as shift (LESS_TH_OR_EQ < PLUS).
+    Conflict between rule 36 and token MINUS resolved as shift (LESS_TH_OR_EQ < MINUS).
+    Conflict between rule 36 and token DIVIDE resolved as shift (LESS_TH_OR_EQ < DIVIDE).
+    Conflict between rule 36 and token MULTIPLY resolved as shift (LESS_TH_OR_EQ < MULTIPLY).
+    Conflict between rule 36 and token MOD resolved as shift (LESS_TH_OR_EQ < MOD).
+    Conflict between rule 36 and token AND resolved as reduce (AND < LESS_TH_OR_EQ).
+    Conflict between rule 36 and token OR resolved as reduce (OR < LESS_TH_OR_EQ).
+
+
+State 60
+
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   38                | Expression GREATER_TH_OR_EQ Expression .  [$end, IDENTIFIER, INTEGER, DOUBLE, STRING, COMP_EQ, COMP_NEQ, LESS_TH, GREATER_TH, LESS_TH_OR_EQ, GREATER_TH_OR_EQ, SEMI_COLON, COMMA, FUNC, L_PAREN, R_PAREN, L_BRACKET, R_BRACKET, PRINT, IF, FOR, WHILE, AND, OR]
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    PLUS      shift, and go to state 38
+    MINUS     shift, and go to state 39
+    DIVIDE    shift, and go to state 40
+    MULTIPLY  shift, and go to state 41
+    MOD       shift, and go to state 42
+
+    $default  reduce using rule 38 (BinaryExpresion)
+
+    Conflict between rule 38 and token COMP_EQ resolved as reduce (COMP_EQ < GREATER_TH_OR_EQ).
+    Conflict between rule 38 and token COMP_NEQ resolved as reduce (COMP_NEQ < GREATER_TH_OR_EQ).
+    Conflict between rule 38 and token LESS_TH resolved as reduce (%left LESS_TH).
+    Conflict between rule 38 and token GREATER_TH resolved as reduce (%left GREATER_TH).
+    Conflict between rule 38 and token LESS_TH_OR_EQ resolved as reduce (%left LESS_TH_OR_EQ).
+    Conflict between rule 38 and token GREATER_TH_OR_EQ resolved as reduce (%left GREATER_TH_OR_EQ).
+    Conflict between rule 38 and token PLUS resolved as shift (GREATER_TH_OR_EQ < PLUS).
+    Conflict between rule 38 and token MINUS resolved as shift (GREATER_TH_OR_EQ < MINUS).
+    Conflict between rule 38 and token DIVIDE resolved as shift (GREATER_TH_OR_EQ < DIVIDE).
+    Conflict between rule 38 and token MULTIPLY resolved as shift (GREATER_TH_OR_EQ < MULTIPLY).
+    Conflict between rule 38 and token MOD resolved as shift (GREATER_TH_OR_EQ < MOD).
+    Conflict between rule 38 and token AND resolved as reduce (AND < GREATER_TH_OR_EQ).
+    Conflict between rule 38 and token OR resolved as reduce (OR < GREATER_TH_OR_EQ).
+
+
+State 61
+
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   31                | Expression PLUS Expression .  [$end, IDENTIFIER, INTEGER, DOUBLE, STRING, COMP_EQ, COMP_NEQ, LESS_TH, GREATER_TH, LESS_TH_OR_EQ, GREATER_TH_OR_EQ, PLUS, MINUS, SEMI_COLON, COMMA, FUNC, L_PAREN, R_PAREN, L_BRACKET, R_BRACKET, PRINT, IF, FOR, WHILE, AND, OR]
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    DIVIDE    shift, and go to state 40
+    MULTIPLY  shift, and go to state 41
+    MOD       shift, and go to state 42
+
+    $default  reduce using rule 31 (BinaryExpresion)
+
+    Conflict between rule 31 and token COMP_EQ resolved as reduce (COMP_EQ < PLUS).
+    Conflict between rule 31 and token COMP_NEQ resolved as reduce (COMP_NEQ < PLUS).
+    Conflict between rule 31 and token LESS_TH resolved as reduce (LESS_TH < PLUS).
+    Conflict between rule 31 and token GREATER_TH resolved as reduce (GREATER_TH < PLUS).
+    Conflict between rule 31 and token LESS_TH_OR_EQ resolved as reduce (LESS_TH_OR_EQ < PLUS).
+    Conflict between rule 31 and token GREATER_TH_OR_EQ resolved as reduce (GREATER_TH_OR_EQ < PLUS).
+    Conflict between rule 31 and token PLUS resolved as reduce (%left PLUS).
+    Conflict between rule 31 and token MINUS resolved as reduce (%left MINUS).
+    Conflict between rule 31 and token DIVIDE resolved as shift (PLUS < DIVIDE).
+    Conflict between rule 31 and token MULTIPLY resolved as shift (PLUS < MULTIPLY).
+    Conflict between rule 31 and token MOD resolved as shift (PLUS < MOD).
+    Conflict between rule 31 and token AND resolved as reduce (AND < PLUS).
+    Conflict between rule 31 and token OR resolved as reduce (OR < PLUS).
+
+
+State 62
+
+   30 BinaryExpresion: Expression . MINUS Expression
+   30                | Expression MINUS Expression .  [$end, IDENTIFIER, INTEGER, DOUBLE, STRING, COMP_EQ, COMP_NEQ, LESS_TH, GREATER_TH, LESS_TH_OR_EQ, GREATER_TH_OR_EQ, PLUS, MINUS, SEMI_COLON, COMMA, FUNC, L_PAREN, R_PAREN, L_BRACKET, R_BRACKET, PRINT, IF, FOR, WHILE, AND, OR]
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    DIVIDE    shift, and go to state 40
+    MULTIPLY  shift, and go to state 41
+    MOD       shift, and go to state 42
+
+    $default  reduce using rule 30 (BinaryExpresion)
+
+    Conflict between rule 30 and token COMP_EQ resolved as reduce (COMP_EQ < MINUS).
+    Conflict between rule 30 and token COMP_NEQ resolved as reduce (COMP_NEQ < MINUS).
+    Conflict between rule 30 and token LESS_TH resolved as reduce (LESS_TH < MINUS).
+    Conflict between rule 30 and token GREATER_TH resolved as reduce (GREATER_TH < MINUS).
+    Conflict between rule 30 and token LESS_TH_OR_EQ resolved as reduce (LESS_TH_OR_EQ < MINUS).
+    Conflict between rule 30 and token GREATER_TH_OR_EQ resolved as reduce (GREATER_TH_OR_EQ < MINUS).
+    Conflict between rule 30 and token PLUS resolved as reduce (%left PLUS).
+    Conflict between rule 30 and token MINUS resolved as reduce (%left MINUS).
+    Conflict between rule 30 and token DIVIDE resolved as shift (MINUS < DIVIDE).
+    Conflict between rule 30 and token MULTIPLY resolved as shift (MINUS < MULTIPLY).
+    Conflict between rule 30 and token MOD resolved as shift (MINUS < MOD).
+    Conflict between rule 30 and token AND resolved as reduce (AND < MINUS).
+    Conflict between rule 30 and token OR resolved as reduce (OR < MINUS).
+
+
+State 63
+
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   34                | Expression DIVIDE Expression .  [$end, IDENTIFIER, INTEGER, DOUBLE, STRING, COMP_EQ, COMP_NEQ, LESS_TH, GREATER_TH, LESS_TH_OR_EQ, GREATER_TH_OR_EQ, PLUS, MINUS, DIVIDE, MULTIPLY, MOD, SEMI_COLON, COMMA, FUNC, L_PAREN, R_PAREN, L_BRACKET, R_BRACKET, PRINT, IF, FOR, WHILE, AND, OR]
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    $default  reduce using rule 34 (BinaryExpresion)
+
+    Conflict between rule 34 and token COMP_EQ resolved as reduce (COMP_EQ < DIVIDE).
+    Conflict between rule 34 and token COMP_NEQ resolved as reduce (COMP_NEQ < DIVIDE).
+    Conflict between rule 34 and token LESS_TH resolved as reduce (LESS_TH < DIVIDE).
+    Conflict between rule 34 and token GREATER_TH resolved as reduce (GREATER_TH < DIVIDE).
+    Conflict between rule 34 and token LESS_TH_OR_EQ resolved as reduce (LESS_TH_OR_EQ < DIVIDE).
+    Conflict between rule 34 and token GREATER_TH_OR_EQ resolved as reduce (GREATER_TH_OR_EQ < DIVIDE).
+    Conflict between rule 34 and token PLUS resolved as reduce (PLUS < DIVIDE).
+    Conflict between rule 34 and token MINUS resolved as reduce (MINUS < DIVIDE).
+    Conflict between rule 34 and token DIVIDE resolved as reduce (%left DIVIDE).
+    Conflict between rule 34 and token MULTIPLY resolved as reduce (%left MULTIPLY).
+    Conflict between rule 34 and token MOD resolved as reduce (%left MOD).
+    Conflict between rule 34 and token AND resolved as reduce (AND < DIVIDE).
+    Conflict between rule 34 and token OR resolved as reduce (OR < DIVIDE).
+
+
+State 64
+
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   32                | Expression MULTIPLY Expression .  [$end, IDENTIFIER, INTEGER, DOUBLE, STRING, COMP_EQ, COMP_NEQ, LESS_TH, GREATER_TH, LESS_TH_OR_EQ, GREATER_TH_OR_EQ, PLUS, MINUS, DIVIDE, MULTIPLY, MOD, SEMI_COLON, COMMA, FUNC, L_PAREN, R_PAREN, L_BRACKET, R_BRACKET, PRINT, IF, FOR, WHILE, AND, OR]
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    $default  reduce using rule 32 (BinaryExpresion)
+
+    Conflict between rule 32 and token COMP_EQ resolved as reduce (COMP_EQ < MULTIPLY).
+    Conflict between rule 32 and token COMP_NEQ resolved as reduce (COMP_NEQ < MULTIPLY).
+    Conflict between rule 32 and token LESS_TH resolved as reduce (LESS_TH < MULTIPLY).
+    Conflict between rule 32 and token GREATER_TH resolved as reduce (GREATER_TH < MULTIPLY).
+    Conflict between rule 32 and token LESS_TH_OR_EQ resolved as reduce (LESS_TH_OR_EQ < MULTIPLY).
+    Conflict between rule 32 and token GREATER_TH_OR_EQ resolved as reduce (GREATER_TH_OR_EQ < MULTIPLY).
+    Conflict between rule 32 and token PLUS resolved as reduce (PLUS < MULTIPLY).
+    Conflict between rule 32 and token MINUS resolved as reduce (MINUS < MULTIPLY).
+    Conflict between rule 32 and token DIVIDE resolved as reduce (%left DIVIDE).
+    Conflict between rule 32 and token MULTIPLY resolved as reduce (%left MULTIPLY).
+    Conflict between rule 32 and token MOD resolved as reduce (%left MOD).
+    Conflict between rule 32 and token AND resolved as reduce (AND < MULTIPLY).
+    Conflict between rule 32 and token OR resolved as reduce (OR < MULTIPLY).
+
+
+State 65
+
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   33                | Expression MOD Expression .  [$end, IDENTIFIER, INTEGER, DOUBLE, STRING, COMP_EQ, COMP_NEQ, LESS_TH, GREATER_TH, LESS_TH_OR_EQ, GREATER_TH_OR_EQ, PLUS, MINUS, DIVIDE, MULTIPLY, MOD, SEMI_COLON, COMMA, FUNC, L_PAREN, R_PAREN, L_BRACKET, R_BRACKET, PRINT, IF, FOR, WHILE, AND, OR]
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    $default  reduce using rule 33 (BinaryExpresion)
+
+    Conflict between rule 33 and token COMP_EQ resolved as reduce (COMP_EQ < MOD).
+    Conflict between rule 33 and token COMP_NEQ resolved as reduce (COMP_NEQ < MOD).
+    Conflict between rule 33 and token LESS_TH resolved as reduce (LESS_TH < MOD).
+    Conflict between rule 33 and token GREATER_TH resolved as reduce (GREATER_TH < MOD).
+    Conflict between rule 33 and token LESS_TH_OR_EQ resolved as reduce (LESS_TH_OR_EQ < MOD).
+    Conflict between rule 33 and token GREATER_TH_OR_EQ resolved as reduce (GREATER_TH_OR_EQ < MOD).
+    Conflict between rule 33 and token PLUS resolved as reduce (PLUS < MOD).
+    Conflict between rule 33 and token MINUS resolved as reduce (MINUS < MOD).
+    Conflict between rule 33 and token DIVIDE resolved as reduce (%left DIVIDE).
+    Conflict between rule 33 and token MULTIPLY resolved as reduce (%left MULTIPLY).
+    Conflict between rule 33 and token MOD resolved as reduce (%left MOD).
+    Conflict between rule 33 and token AND resolved as reduce (AND < MOD).
+    Conflict between rule 33 and token OR resolved as reduce (OR < MOD).
+
+
+State 66
+
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   41                | Expression AND Expression .  [$end, IDENTIFIER, INTEGER, DOUBLE, STRING, SEMI_COLON, COMMA, FUNC, L_PAREN, R_PAREN, L_BRACKET, R_BRACKET, PRINT, IF, FOR, WHILE, AND, OR]
+   42                | Expression . OR Expression
+
+    COMP_EQ           shift, and go to state 32
+    COMP_NEQ          shift, and go to state 33
+    LESS_TH           shift, and go to state 34
+    GREATER_TH        shift, and go to state 35
+    LESS_TH_OR_EQ     shift, and go to state 36
+    GREATER_TH_OR_EQ  shift, and go to state 37
+    PLUS              shift, and go to state 38
+    MINUS             shift, and go to state 39
+    DIVIDE            shift, and go to state 40
+    MULTIPLY          shift, and go to state 41
+    MOD               shift, and go to state 42
+
+    $default  reduce using rule 41 (BinaryExpresion)
+
+    Conflict between rule 41 and token COMP_EQ resolved as shift (AND < COMP_EQ).
+    Conflict between rule 41 and token COMP_NEQ resolved as shift (AND < COMP_NEQ).
+    Conflict between rule 41 and token LESS_TH resolved as shift (AND < LESS_TH).
+    Conflict between rule 41 and token GREATER_TH resolved as shift (AND < GREATER_TH).
+    Conflict between rule 41 and token LESS_TH_OR_EQ resolved as shift (AND < LESS_TH_OR_EQ).
+    Conflict between rule 41 and token GREATER_TH_OR_EQ resolved as shift (AND < GREATER_TH_OR_EQ).
+    Conflict between rule 41 and token PLUS resolved as shift (AND < PLUS).
+    Conflict between rule 41 and token MINUS resolved as shift (AND < MINUS).
+    Conflict between rule 41 and token DIVIDE resolved as shift (AND < DIVIDE).
+    Conflict between rule 41 and token MULTIPLY resolved as shift (AND < MULTIPLY).
+    Conflict between rule 41 and token MOD resolved as shift (AND < MOD).
+    Conflict between rule 41 and token AND resolved as reduce (%left AND).
+    Conflict between rule 41 and token OR resolved as reduce (OR < AND).
+
+
+State 67
+
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+   42                | Expression OR Expression .  [$end, IDENTIFIER, INTEGER, DOUBLE, STRING, SEMI_COLON, COMMA, FUNC, L_PAREN, R_PAREN, L_BRACKET, R_BRACKET, PRINT, IF, FOR, WHILE, OR]
+
+    COMP_EQ           shift, and go to state 32
+    COMP_NEQ          shift, and go to state 33
+    LESS_TH           shift, and go to state 34
+    GREATER_TH        shift, and go to state 35
+    LESS_TH_OR_EQ     shift, and go to state 36
+    GREATER_TH_OR_EQ  shift, and go to state 37
+    PLUS              shift, and go to state 38
+    MINUS             shift, and go to state 39
+    DIVIDE            shift, and go to state 40
+    MULTIPLY          shift, and go to state 41
+    MOD               shift, and go to state 42
+    AND               shift, and go to state 43
+
+    $default  reduce using rule 42 (BinaryExpresion)
+
+    Conflict between rule 42 and token COMP_EQ resolved as shift (OR < COMP_EQ).
+    Conflict between rule 42 and token COMP_NEQ resolved as shift (OR < COMP_NEQ).
+    Conflict between rule 42 and token LESS_TH resolved as shift (OR < LESS_TH).
+    Conflict between rule 42 and token GREATER_TH resolved as shift (OR < GREATER_TH).
+    Conflict between rule 42 and token LESS_TH_OR_EQ resolved as shift (OR < LESS_TH_OR_EQ).
+    Conflict between rule 42 and token GREATER_TH_OR_EQ resolved as shift (OR < GREATER_TH_OR_EQ).
+    Conflict between rule 42 and token PLUS resolved as shift (OR < PLUS).
+    Conflict between rule 42 and token MINUS resolved as shift (OR < MINUS).
+    Conflict between rule 42 and token DIVIDE resolved as shift (OR < DIVIDE).
+    Conflict between rule 42 and token MULTIPLY resolved as shift (OR < MULTIPLY).
+    Conflict between rule 42 and token MOD resolved as shift (OR < MOD).
+    Conflict between rule 42 and token AND resolved as shift (OR < AND).
+    Conflict between rule 42 and token OR resolved as reduce (%left OR).
+
+
+State 68
+
+    4 Expression: Identifier EQ Expression .  [$end, IDENTIFIER, INTEGER, DOUBLE, STRING, SEMI_COLON, COMMA, FUNC, L_PAREN, R_PAREN, L_BRACKET, R_BRACKET, PRINT, IF, FOR, WHILE]
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    COMP_EQ           shift, and go to state 32
+    COMP_NEQ          shift, and go to state 33
+    LESS_TH           shift, and go to state 34
+    GREATER_TH        shift, and go to state 35
+    LESS_TH_OR_EQ     shift, and go to state 36
+    GREATER_TH_OR_EQ  shift, and go to state 37
+    PLUS              shift, and go to state 38
+    MINUS             shift, and go to state 39
+    DIVIDE            shift, and go to state 40
+    MULTIPLY          shift, and go to state 41
+    MOD               shift, and go to state 42
+    AND               shift, and go to state 43
+    OR                shift, and go to state 44
+
+    $default  reduce using rule 4 (Expression)
+
+    Conflict between rule 4 and token COMP_EQ resolved as shift (EQ < COMP_EQ).
+    Conflict between rule 4 and token COMP_NEQ resolved as shift (EQ < COMP_NEQ).
+    Conflict between rule 4 and token LESS_TH resolved as shift (EQ < LESS_TH).
+    Conflict between rule 4 and token GREATER_TH resolved as shift (EQ < GREATER_TH).
+    Conflict between rule 4 and token LESS_TH_OR_EQ resolved as shift (EQ < LESS_TH_OR_EQ).
+    Conflict between rule 4 and token GREATER_TH_OR_EQ resolved as shift (EQ < GREATER_TH_OR_EQ).
+    Conflict between rule 4 and token PLUS resolved as shift (EQ < PLUS).
+    Conflict between rule 4 and token MINUS resolved as shift (EQ < MINUS).
+    Conflict between rule 4 and token DIVIDE resolved as shift (EQ < DIVIDE).
+    Conflict between rule 4 and token MULTIPLY resolved as shift (EQ < MULTIPLY).
+    Conflict between rule 4 and token MOD resolved as shift (EQ < MOD).
+    Conflict between rule 4 and token AND resolved as shift (EQ < AND).
+    Conflict between rule 4 and token OR resolved as shift (EQ < OR).
+
+
+State 69
+
+    5 Expression: Identifier L_PAREN Call_Args . R_PAREN
+   25 Call_Args: Call_Args . COMMA Expression
+
+    COMMA    shift, and go to state 72
+    R_PAREN  shift, and go to state 76
+
+
+State 70
+
+   19 Function_Declaration: FUNC Identifier L_PAREN Function_Args_Declartion . R_PAREN Block
+   22 Function_Args_Declartion: Function_Args_Declartion . COMMA Identifier
+
+    COMMA    shift, and go to state 77
+    R_PAREN  shift, and go to state 78
+
+
+State 71
+
+   21 Function_Args_Declartion: Identifier .
+
+    $default  reduce using rule 21 (Function_Args_Declartion)
+
+
+State 72
+
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   25 Call_Args: Call_Args COMMA . Expression
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    Expression            go to state 79
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
+
+
+State 73
+
+   18 PrintExpresion: PRINT L_PAREN Call_Args R_PAREN .
+
+    $default  reduce using rule 18 (PrintExpresion)
+
+
+State 74
+
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   26 IfElseExpression: IF Expression Block ELSE . Block
+
+    L_BRACKET  shift, and go to state 7
+
+    Block  go to state 80
+
+
+State 75
+
+   13 Expression: FOR Expression SEMI_COLON Expression . SEMI_COLON Expression Block
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    COMP_EQ           shift, and go to state 32
+    COMP_NEQ          shift, and go to state 33
+    LESS_TH           shift, and go to state 34
+    GREATER_TH        shift, and go to state 35
+    LESS_TH_OR_EQ     shift, and go to state 36
+    GREATER_TH_OR_EQ  shift, and go to state 37
+    PLUS              shift, and go to state 38
+    MINUS             shift, and go to state 39
+    DIVIDE            shift, and go to state 40
+    MULTIPLY          shift, and go to state 41
+    MOD               shift, and go to state 42
+    SEMI_COLON        shift, and go to state 81
+    AND               shift, and go to state 43
+    OR                shift, and go to state 44
+
+
+State 76
 
     5 Expression: Identifier L_PAREN Call_Args R_PAREN .
 
     $default  reduce using rule 5 (Expression)
 
 
-State 43
+State 77
 
-   17 IfElseExpression: IF Expression Block ELSE Block .
+   22 Function_Args_Declartion: Function_Args_Declartion COMMA . Identifier
+   43 Identifier: . IDENTIFIER
 
-    $default  reduce using rule 17 (IfElseExpression)
+    IDENTIFIER  shift, and go to state 1
+
+    Identifier  go to state 82
 
 
-State 44
+State 78
 
-    8 Expression: Expression . Operator Expression
-   16 Call_Args: Call_Args COMMA Expression .
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   19 Function_Declaration: FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN . Block
 
-    COMP_EQ           shift, and go to state 20
-    COMP_NEQ          shift, and go to state 21
-    LESS_TH           shift, and go to state 22
-    GREATER_TH        shift, and go to state 23
-    LESS_TH_OR_EQ     shift, and go to state 24
-    GREATER_TH_OR_EQ  shift, and go to state 25
-    PLUS              shift, and go to state 26
-    MINUS             shift, and go to state 27
-    DIVIDE            shift, and go to state 28
-    MULTIPLY          shift, and go to state 29
+    L_BRACKET  shift, and go to state 7
 
-    $default  reduce using rule 16 (Call_Args)
+    Block  go to state 83
 
-    Operator  go to state 30
+
+State 79
+
+   25 Call_Args: Call_Args COMMA Expression .  [COMMA, R_PAREN]
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    COMP_EQ           shift, and go to state 32
+    COMP_NEQ          shift, and go to state 33
+    LESS_TH           shift, and go to state 34
+    GREATER_TH        shift, and go to state 35
+    LESS_TH_OR_EQ     shift, and go to state 36
+    GREATER_TH_OR_EQ  shift, and go to state 37
+    PLUS              shift, and go to state 38
+    MINUS             shift, and go to state 39
+    DIVIDE            shift, and go to state 40
+    MULTIPLY          shift, and go to state 41
+    MOD               shift, and go to state 42
+    AND               shift, and go to state 43
+    OR                shift, and go to state 44
+
+    $default  reduce using rule 25 (Call_Args)
+
+
+State 80
+
+   26 IfElseExpression: IF Expression Block ELSE Block .
+
+    $default  reduce using rule 26 (IfElseExpression)
+
+
+State 81
+
+    4 Expression: . Identifier EQ Expression
+    5           | . Identifier L_PAREN Call_Args R_PAREN
+    6           | . Identifier
+    7           | . Constant
+    8           | . PrintExpresion
+    9           | . Function_Declaration
+   10           | . BinaryExpresion
+   11           | . L_PAREN Expression R_PAREN
+   12           | . IfElseExpression
+   13           | . FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block
+   13           | FOR Expression SEMI_COLON Expression SEMI_COLON . Expression Block
+   14           | . WHILE Expression Block
+   15           | . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   18 PrintExpresion: . PRINT L_PAREN Call_Args R_PAREN
+   19 Function_Declaration: . FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block
+   26 IfElseExpression: . IF Expression Block ELSE Block
+   27 Constant: . DOUBLE
+   28         | . INTEGER
+   29         | . STRING
+   30 BinaryExpresion: . Expression MINUS Expression
+   31                | . Expression PLUS Expression
+   32                | . Expression MULTIPLY Expression
+   33                | . Expression MOD Expression
+   34                | . Expression DIVIDE Expression
+   35                | . Expression LESS_TH Expression
+   36                | . Expression LESS_TH_OR_EQ Expression
+   37                | . Expression GREATER_TH Expression
+   38                | . Expression GREATER_TH_OR_EQ Expression
+   39                | . Expression COMP_EQ Expression
+   40                | . Expression COMP_NEQ Expression
+   41                | . Expression AND Expression
+   42                | . Expression OR Expression
+   43 Identifier: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 1
+    INTEGER     shift, and go to state 2
+    DOUBLE      shift, and go to state 3
+    STRING      shift, and go to state 4
+    FUNC        shift, and go to state 5
+    L_PAREN     shift, and go to state 6
+    L_BRACKET   shift, and go to state 7
+    PRINT       shift, and go to state 8
+    IF          shift, and go to state 9
+    FOR         shift, and go to state 10
+    WHILE       shift, and go to state 11
+
+    Expression            go to state 84
+    Block                 go to state 15
+    PrintExpresion        go to state 16
+    Function_Declaration  go to state 17
+    IfElseExpression      go to state 18
+    Constant              go to state 19
+    BinaryExpresion       go to state 20
+    Identifier            go to state 21
+
+
+State 82
+
+   22 Function_Args_Declartion: Function_Args_Declartion COMMA Identifier .
+
+    $default  reduce using rule 22 (Function_Args_Declartion)
+
+
+State 83
+
+   19 Function_Declaration: FUNC Identifier L_PAREN Function_Args_Declartion R_PAREN Block .
+
+    $default  reduce using rule 19 (Function_Declaration)
+
+
+State 84
+
+   13 Expression: FOR Expression SEMI_COLON Expression SEMI_COLON Expression . Block
+   16 Block: . L_BRACKET Expressions R_BRACKET
+   17      | . L_BRACKET R_BRACKET
+   30 BinaryExpresion: Expression . MINUS Expression
+   31                | Expression . PLUS Expression
+   32                | Expression . MULTIPLY Expression
+   33                | Expression . MOD Expression
+   34                | Expression . DIVIDE Expression
+   35                | Expression . LESS_TH Expression
+   36                | Expression . LESS_TH_OR_EQ Expression
+   37                | Expression . GREATER_TH Expression
+   38                | Expression . GREATER_TH_OR_EQ Expression
+   39                | Expression . COMP_EQ Expression
+   40                | Expression . COMP_NEQ Expression
+   41                | Expression . AND Expression
+   42                | Expression . OR Expression
+
+    COMP_EQ           shift, and go to state 32
+    COMP_NEQ          shift, and go to state 33
+    LESS_TH           shift, and go to state 34
+    GREATER_TH        shift, and go to state 35
+    LESS_TH_OR_EQ     shift, and go to state 36
+    GREATER_TH_OR_EQ  shift, and go to state 37
+    PLUS              shift, and go to state 38
+    MINUS             shift, and go to state 39
+    DIVIDE            shift, and go to state 40
+    MULTIPLY          shift, and go to state 41
+    MOD               shift, and go to state 42
+    L_BRACKET         shift, and go to state 7
+    AND               shift, and go to state 43
+    OR                shift, and go to state 44
+
+    Block  go to state 85
+
+
+State 85
+
+   13 Expression: FOR Expression SEMI_COLON Expression SEMI_COLON Expression Block .
+
+    $default  reduce using rule 13 (Expression)

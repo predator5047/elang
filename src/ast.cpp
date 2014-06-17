@@ -1,6 +1,8 @@
 #include "ast.h"
 #include "parser.hpp"
 
+#include <string>
+
 typedef std::vector<std::map<std::string, Value> > VariablesListMap;
 
 VariablesListMap Variables(1);
@@ -80,6 +82,7 @@ Value NBinaryOparator::Interpret() {
 		case GREATER_TH_OR_EQ:
 			return left_val.Comp_GreaterThenOrEq(right_val);
 		case AND:
+			std::cout << left_val.ToString() << " " << right_val.ToString() << "\n";
 			return left_val.And(right_val);
 		case OR:
 			return left_val.Or(right_val);
@@ -282,3 +285,18 @@ NWhileExpresion::~NWhileExpresion() {
 	delete body;
 }
 
+
+NString::NString(std::string *s) {
+	value = new std::string(*s);
+	delete s;
+}
+
+Value NString::Interpret() {
+	Value val(VString);
+	val.Str = new std::string(*value);
+	return val;
+}
+
+NString::~NString() {
+	delete value;
+}
