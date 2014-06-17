@@ -82,7 +82,6 @@ Value NBinaryOparator::Interpret() {
 		case GREATER_TH_OR_EQ:
 			return left_val.Comp_GreaterThenOrEq(right_val);
 		case AND:
-			std::cout << left_val.ToString() << " " << right_val.ToString() << "\n";
 			return left_val.And(right_val);
 		case OR:
 			return left_val.Or(right_val);
