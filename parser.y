@@ -8,11 +8,12 @@
 #include <cstdlib>
 #include "ast.h"
 
-extern int yylex();
+extern "C" int yylex();
 extern int yylineno;
 
 void yyerror(const char *s) {
 	std::cout << "Error near line " << yylineno << " " << s << "\n"; 
+	exit(-1);
 }
 
 NBlock *program;

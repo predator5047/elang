@@ -8,6 +8,7 @@
 #define TOK(t) (yylval.type = (t))
 
 extern "C" int yywrap() {}
+extern "C" int yylex();
 char buf[150];
 char *s;
 
